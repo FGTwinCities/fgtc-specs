@@ -28,6 +28,10 @@ function get_memory_json {
 
     MEMORY_JSON="[]"
     for i in "${!MEMORY_TYPES[@]}"; do
+        # Skip empty slots
+        if [[ ${MEMORY_TYPES[$i]} == "Unknown" ]]; then
+            continue
+        fi
         MEMORY_JSON=$(echo $MEMORY_JSON | jq \
             --arg type "${MEMORY_TYPES[$i]#DDR}" \
             --arg size "$((${MEMORY_SIZES[$i]} * 1000))" \
