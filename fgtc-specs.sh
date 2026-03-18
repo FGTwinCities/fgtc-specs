@@ -184,12 +184,12 @@ BUILD_JSON=$( jq -n \
 echo "$BUILD_JSON" | jq .
 
 if [[ " $* " != *" --no-submit "* ]]; then
-    RESPONSE=$(curl --json "$BUILD_JSON" ${SERVER_URL}/build 2> /dev/null)
+    RESPONSE=$(curl --json "$BUILD_JSON" ${SERVER_URL}/build/modern 2> /dev/null)
 
     ID=$(echo $RESPONSE | jq '.id' | tr -d '"')
     echo "Build ID: $ID"
     
     if [[ " $* " != *" --no-open "* ]]; then
-        xdg-open ${SERVER_URL}/build/create?edit=${ID} 2> /dev/null
+        xdg-open ${SERVER_URL}/build/modern/create?edit=${ID} 2> /dev/null
     fi
 fi
